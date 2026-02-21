@@ -1,0 +1,128 @@
+"use client";
+
+import React, { createContext, useContext, useState, useEffect } from "react";
+
+type Locale = "en" | "ar";
+
+interface LanguageContextType {
+  locale: Locale;
+  setLocale: (l: Locale) => void;
+  t: (key: string) => string;
+  isRTL: boolean;
+}
+
+const translations: Record<Locale, Record<string, string>> = {
+  en: {
+    appName: "Darb",
+    requestRide: "Request Ride",
+    cancelRide: "Cancel Ride",
+    estimatedPrice: "Estimated Price",
+    min: "min",
+    accept: "Accept",
+    reject: "Reject",
+    rejectReason: "Rejection Reason",
+    traffic: "Heavy Traffic",
+    tooFar: "Too Far",
+    vehicleIssue: "Vehicle Issue",
+    personal: "Personal Reason",
+    other: "Other",
+    rideRequested: "Ride Requested",
+    driverOnWay: "Driver on the way",
+    arrived: "Arrived",
+    inProgress: "Trip in Progress",
+    completed: "Completed",
+    chat: "Chat",
+    send: "Send",
+    support: "Support",
+    dashboard: "Dashboard",
+    riders: "Riders",
+    drivers: "Drivers",
+    analytics: "Analytics",
+    rejections: "Rejections",
+    avgTime: "Avg. Time",
+    peakSurge: "Peak Surge Active",
+    invoice: "Invoice",
+  },
+  ar: {
+    appName: "درب",
+    requestRide: "طلب رحلة",
+    cancelRide: "إلغاء الرحلة",
+    estimatedPrice: "السعر المقدر",
+    min: "د",
+    accept: "قبول",
+    reject: "رفض",
+    rejectReason: "سبب الرفض",
+    traffic: "ازدحام مروري",
+    tooFar: "بعيد جداً",
+    vehicleIssue: "مشكلة في المركبة",
+    personal: "سبب شخصي",
+    other: "آخر",
+    rideRequested: "تم طلب الرحلة",
+    driverOnWay: "السائق في الطريق",
+    arrived: "وصل",
+    inProgress: "الرحلة جارية",
+    completed: "مكتملة",
+    chat: "محادثة",
+    send: "إرسال",
+    support: "الدعم",
+    dashboard: "لوحة التحكم",
+    riders: "الركاب",
+    drivers: "السائقون",
+    analytics: "التحليلات",
+    rejections: "الرفض",
+    avgTime: "متوسط الوقت",
+    peakSurge: "ذروة الأسعار نشطة",
+    invoice: "فاتورة",
+  },
+};
+
+const LanguageContext = createContext<LanguageContextType | null>(null);
+
+export function LanguageProvider({ children }: { children: React.ReactNode }) {
+  const [locale, setLocaleState] = useState<Locale>("en");
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("darb-locale") as Locale | null;
+    if (stored && (stored === "ar" || stored === "en")) setLocaleState(stored);
+    setMounted(true);
+  }, []);
+
+  const setLocale = (l: Locale) => {
+    setLocaleState(l);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("darb-locale", l);
+      document.documentElement.lang = l;
+      document.documentElement.dir = l === "ar" ? "rtl" : "ltr";
+    }
+  };
+
+  useEffect(() => {
+    if (!mounted) return;
+    document.documentElement.lang = locale;
+    document.documentElement.dir = locale === "ar" ? "rtl" : "ltr";
+    document.documentElement.classList.toggle("locale-ar", locale === "ar");
+    document.documentElement.classList.toggle("locale-en", locale === "en");
+  }, [locale, mounted]);
+
+  const t = (key: string) => translations[locale][key] ?? key;
+
+  return (
+    <LanguageContext.Provider
+      value={{
+        locale,
+        setLocale,
+        t,
+        isRTL: locale === "ar",
+      }}
+    >
+      {children}
+    </LanguageContext.Provider>
+  );
+}
+
+export function useLanguage() {
+  const ctx = useContext(LanguageContext);
+  if (!ctx) throw new Error("useLanguage must be inside LanguageProvider");
+  return ctx;
+}
