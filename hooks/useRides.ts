@@ -34,13 +34,11 @@ export function useRides(userId: string | undefined, role: "rider" | "driver") {
       .on(
         "postgres_changes",
         { event: "*", schema: "public", table: "rides", filter: `${col}=eq.${userId}` },
-        fetch
+        () => { void fetch(); }
       )
       .subscribe();
 
-    return () => {
-      sub.unsubscribe();
-    };
+    return () => { void sub.unsubscribe(); };
   }, [userId, role]);
 
   return { rides, loading };

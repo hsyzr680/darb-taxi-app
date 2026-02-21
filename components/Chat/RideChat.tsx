@@ -39,9 +39,7 @@ export function RideChat({ rideId, userId }: RideChatProps) {
       const newMsg = (payload as { new: ChatMessage }).new;
       if (newMsg) setMessages((prev) => [...prev, newMsg]);
     });
-    return () => {
-      channel.unsubscribe();
-    };
+    return () => { void channel.unsubscribe(); };
   }, [rideId]);
 
   useEffect(() => {

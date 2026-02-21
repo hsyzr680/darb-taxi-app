@@ -47,7 +47,7 @@ export default function HubPage() {
     const withAccept = rides.filter((r) => r.accepted_at && r.requested_at);
     if (withAccept.length === 0) return 0;
     const total = withAccept.reduce((acc, r) => {
-      const ms = new Date(r.accepted_at) - new Date(r.requested_at);
+      const ms = new Date(r.accepted_at).getTime() - new Date(r.requested_at).getTime();
       return acc + ms / 60000;
     }, 0);
     return Math.round(total / withAccept.length);
@@ -57,7 +57,7 @@ export default function HubPage() {
     const completed = rides.filter((r) => r.started_at && r.completed_at);
     if (completed.length === 0) return 0;
     const total = completed.reduce((acc, r) => {
-      const ms = new Date(r.completed_at) - new Date(r.started_at);
+      const ms = new Date(r.completed_at).getTime() - new Date(r.started_at).getTime();
       return acc + ms / 60000;
     }, 0);
     return Math.round(total / completed.length);

@@ -59,10 +59,10 @@ export function SupportCenter() {
       .on(
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "support_messages", filter: `ticket_id=eq.${selected}` },
-        load
+        () => { void load(); }
       )
       .subscribe();
-    return () => sub.unsubscribe();
+    return () => { void sub.unsubscribe(); };
   }, [selected]);
 
   const handleCreateTicket = async () => {

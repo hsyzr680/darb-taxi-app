@@ -27,11 +27,11 @@ export function useAvailableRides() {
       .on(
         "postgres_changes",
         { event: "*", schema: "public", table: "rides", filter: "status=eq.requested" },
-        fetch
+        () => { void fetch(); }
       )
       .subscribe();
 
-    return () => sub.unsubscribe();
+    return () => { void sub.unsubscribe(); };
   }, []);
 
   return { rides, loading };
