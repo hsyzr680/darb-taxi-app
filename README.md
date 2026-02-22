@@ -13,6 +13,7 @@ Production-ready full-stack taxi platform built with **Next.js 14 (App Router)**
 - **AI Price Surge**: Peak-hour pricing (weekday/weekend)
 - **Heatmap Simulation**: Request density visualization
 - **Invoice Generator**: PDF receipt after each trip
+- **Forgot Password**: Email-based password reset flow
 - **UX**: Dark/Light mode, skeleton loaders, Framer Motion
 
 ## Setup
@@ -32,7 +33,11 @@ Production-ready full-stack taxi platform built with **Next.js 14 (App Router)**
    ```
    Add your Supabase URL and anon key.
 
-4. **Run**
+4. **Forgot Password**: Add redirect URLs in Supabase Dashboard → Authentication → URL Configuration:
+   - `http://localhost:3000/auth/reset-password` (dev)
+   - `https://yourdomain.com/auth/reset-password` (prod)
+
+5. **Run**
    ```bash
    npm run dev
    ```
