@@ -9,7 +9,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useLanguage } from "@/context/LanguageContext";
-import { motion } from "framer-motion";
 
 export default function ResetPasswordPage() {
   const [password, setPassword] = useState("");
@@ -31,11 +30,11 @@ export default function ResetPasswordPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (password !== confirm) {
-      setError("Passwords do not match");
+      setError(t("passwordMismatch"));
       return;
     }
     if (password.length < 6) {
-      setError("Password must be at least 6 characters");
+      setError(t("passwordMin"));
       return;
     }
     setLoading(true);
@@ -59,14 +58,8 @@ export default function ResetPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-muted/30">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="w-full max-w-md"
-      >
-        <Card>
+    <div className="min-h-screen flex items-center justify-center p-4 bg-muted/20">
+        <Card className="w-full max-w-sm border-0 shadow-lg">
           <CardHeader className="text-center">
             <CardTitle>{t("resetPassword")}</CardTitle>
             <CardDescription>{t("newPassword")}</CardDescription>
@@ -109,7 +102,6 @@ export default function ResetPasswordPage() {
             </div>
           </CardContent>
         </Card>
-      </motion.div>
     </div>
   );
 }

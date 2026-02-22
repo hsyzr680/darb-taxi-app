@@ -3,30 +3,30 @@ import { Button } from "@/components/ui/button";
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-background to-muted/30 p-4">
-      <h1 className="text-4xl md:text-6xl font-bold mb-2">Darb</h1>
-      <p className="text-2xl md:text-3xl text-muted-foreground mb-8" dir="rtl">
-        درب
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-b from-background to-muted/20">
+      <h1 className="text-4xl font-bold mb-1">Darb</h1>
+      <p className="text-xl text-muted-foreground mb-6" dir="rtl">درب</p>
+      <p className="text-sm text-muted-foreground mb-6 text-center max-w-xs">
+        تطبيق تاكسي متكامل
       </p>
-      <p className="text-muted-foreground mb-8 text-center max-w-md">
-        Premium taxi ecosystem with real-time chat, advanced ride logic, and
-        analytics.
-      </p>
-      <div className="flex flex-col sm:flex-row gap-4">
-        <Button asChild size="lg">
-          <Link href="/auth">Get Started</Link>
+      <div className="flex flex-col gap-3 w-full max-w-[200px]">
+        <Button asChild size="lg" className="h-11">
+          <Link href="/auth">تسجيل الدخول</Link>
         </Button>
-        <Button asChild variant="outline" size="lg">
-          <Link href="/auth?role=rider">Book as Rider</Link>
+        <Button asChild variant="outline" size="lg" className="h-11">
+          <Link href="/auth/signup">إنشاء حساب جديد</Link>
         </Button>
-        <Button asChild variant="outline" size="lg">
-          <Link href="/auth?role=driver">Drive with Darb</Link>
-        </Button>
-      </div>
-      <div className="mt-12 flex gap-6">
-        <Link href="/hub" className="text-sm text-muted-foreground hover:text-foreground">
-          Admin Hub
-        </Link>
+        <div className="flex gap-4 justify-center pt-2">
+          <Link href="/rider" className="text-xs text-muted-foreground hover:text-foreground">
+            راكب
+          </Link>
+          <Link href="/driver" className="text-xs text-muted-foreground hover:text-foreground">
+            سائق
+          </Link>
+          <Link href="/hub" className="text-xs text-muted-foreground hover:text-foreground">
+            لوحة التحكم
+          </Link>
+        </div>
       </div>
     </div>
   );

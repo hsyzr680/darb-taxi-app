@@ -50,6 +50,13 @@ const translations: Record<Locale, Record<string, string>> = {
     confirmPassword: "Confirm Password",
     updatePassword: "Update Password",
     checkEmail: "Check your email for the reset link",
+    signIn: "Sign In",
+    signUp: "Create Account",
+    createAccount: "Create Account",
+    haveAccount: "Already have an account?",
+    noAccount: "Don't have an account?",
+    passwordMismatch: "Passwords do not match",
+    passwordMin: "Password must be at least 6 characters",
   },
   ar: {
     appName: "درب",
@@ -89,6 +96,13 @@ const translations: Record<Locale, Record<string, string>> = {
     confirmPassword: "تأكيد كلمة السر",
     updatePassword: "تحديث كلمة السر",
     checkEmail: "تحقق من بريدك للإرسال رابط الإعادة",
+    signIn: "تسجيل الدخول",
+    signUp: "إنشاء حساب",
+    createAccount: "إنشاء حساب جديد",
+    haveAccount: "لديك حساب؟",
+    noAccount: "ليس لديك حساب؟",
+    passwordMismatch: "كلمات السر غير متطابقة",
+    passwordMin: "كلمة السر 6 أحرف على الأقل",
   },
 };
 

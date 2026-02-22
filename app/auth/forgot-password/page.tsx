@@ -8,8 +8,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useLanguage } from "@/context/LanguageContext";
-import { motion } from "framer-motion";
-
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
@@ -36,14 +34,9 @@ export default function ForgotPasswordPage() {
 
   if (sent) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4 bg-muted/30">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="w-full max-w-md"
-        >
-          <Card>
-            <CardHeader className="text-center">
+      <div className="min-h-screen flex items-center justify-center p-4 bg-muted/20">
+        <Card className="w-full max-w-sm border-0 shadow-lg">
+          <CardHeader className="text-center">
               <CardTitle>{t("appName")}</CardTitle>
               <CardDescription>{t("checkEmail")}</CardDescription>
             </CardHeader>
@@ -55,21 +48,14 @@ export default function ForgotPasswordPage() {
                 <Link href="/auth">← {t("appName")}</Link>
               </Button>
             </CardContent>
-          </Card>
-        </motion.div>
+        </Card>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-muted/30">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="w-full max-w-md"
-      >
-        <Card>
+    <div className="min-h-screen flex items-center justify-center p-4 bg-muted/20">
+        <Card className="w-full max-w-sm border-0 shadow-lg">
           <CardHeader className="text-center">
             <CardTitle>{t("resetPassword")}</CardTitle>
             <CardDescription>{t("enterEmail")}</CardDescription>
@@ -100,7 +86,6 @@ export default function ForgotPasswordPage() {
             </div>
           </CardContent>
         </Card>
-      </motion.div>
     </div>
   );
 }

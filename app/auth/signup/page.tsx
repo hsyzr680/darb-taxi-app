@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useLanguage } from "@/context/LanguageContext";
 
-export default function AuthPage() {
+export default function SignUpPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -19,11 +19,11 @@ export default function AuthPage() {
   const supabase = createClient();
   const { t } = useLanguage();
 
-  const handleSignIn = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError("");
-    const { error: err } = await supabase.auth.signInWithPassword({ email, password });
+    const { error: err } = await supabase.auth.signUp({ email, password });
     setLoading(false);
     if (err) {
       setError(err.message);
@@ -38,10 +38,10 @@ export default function AuthPage() {
       <Card className="w-full max-w-sm border-0 shadow-lg">
         <CardHeader className="text-center pb-2">
           <CardTitle className="text-xl">{t("appName")}</CardTitle>
-          <CardDescription>{t("signIn")}</CardDescription>
+          <CardDescription>{t("createAccount")}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <form onSubmit={handleSignIn} className="space-y-3">
+          <form onSubmit={handleSubmit} className="space-y-3">
             <div>
               <Label htmlFor="email" className="text-sm">Email</Label>
               <Input
@@ -62,23 +62,20 @@ export default function AuthPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                minLength={6}
+                placeholder="6+ characters"
                 className="mt-1 h-10"
               />
             </div>
             {error && <p className="text-sm text-destructive">{error}</p>}
-            <div className="flex justify-end">
-              <Link href="/auth/forgot-password" className="text-xs text-muted-foreground hover:text-primary">
-                {t("forgotPassword")}
-              </Link>
-            </div>
             <Button type="submit" className="w-full h-10" disabled={loading}>
-              {loading ? "..." : t("signIn")}
+              {loading ? "..." : t("createAccount")}
             </Button>
           </form>
           <p className="text-center text-sm text-muted-foreground">
-            {t("noAccount")}{" "}
-            <Link href="/auth/signup" className="text-primary font-medium hover:underline">
-              {t("signUp")}
+            {t("haveAccount")}{" "}
+            <Link href="/auth" className="text-primary font-medium hover:underline">
+              {t("signIn")}
             </Link>
           </p>
           <Link href="/" className="block text-center text-xs text-muted-foreground hover:text-foreground">
